@@ -134,3 +134,8 @@ body {
     color: #777;
   }
 }
+
+.errorMsg {
+  color: red;
+  padding-left: 20px;
+}

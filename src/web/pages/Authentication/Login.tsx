@@ -1,46 +1,59 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
+import Input from "tt-frontend-components/Input/Input.tsx";
+import Button from "tt-frontend-components/Button/Button.tsx";
+import {ERROR_INVALID_EMAIL, ERROR_INVALID_PASSWORD} from "tt-frontend-message";
+import validator from 'validator';
 
 interface RouteProps {
   history: any;
 }
 
 const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const [userName, setUserName] = useState<string>('');
+  const [email, setEmailAddress] = useState<string>('');
+  const [emailError, setEmailError] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
-  console.log('loginnnnn')
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   useEffect(() => {
-    
+
   }, []);
 
 
-  /*const authenticate = (): void => {
-    if (isNotEmpty(userName) && isNotEmpty(password)) {
-      if (validateEmail(userName)) {
-        authenticateAdvisor({
-          userName: userName,
-          password: password,
-        });
-      } else {
-        triggerNotification({ type: 'error', message: ERROR_INVALID_EMAIL });
-      }
-    } else {
-      triggerNotification({ type: 'error', message: ERROR_LOGIN_INVALID_VALUE });
+  const authenticateUser = async() => {
+    setEmailError(false);
+    setPasswordError(false);
+
+    if (email.trim() == '') {
+      setEmailError(true);
+      return false;
     }
-  };
 
-  const navigateToRoute = (route): void => {
-    history.push(route);
-  };
+    if (email.trim()) {
+      if (!email.match(mailformat)) {
+        setEmailError(true);
+        return false;
+      }
+    }
 
-  const navigateToForgotPassword = (): void => {
-    history.push(POSITIVLY_FORGOT_PWD);
-  };
+    if (password.trim() == '') {
+      setPasswordError(true);
+      return false;
+    }
 
-  const navigateToRegister = (): void => {
-    history.push(POSITIVLY_REGISTER);
-  };*/
+    setDisableButton(true);
+
+    let formData = {email: email, password: password}
+    let response = await loginUser(formData);
+
+    setDisableButton(false);
+
+    if (response) {
+      history.push('/dashboard');
+    }
+  }
 
   return (
     <React.Fragment>
@@ -51,22 +64,35 @@ const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
               <div className="card-body">
                 <h5 className="card-title text-center">Sign In</h5>
                 <form className="form-signin">
-                  <div className="form-label-group">
-                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address"   />
-                    <label htmlFor="inputEmail">Email address</label>
-                  </div>
-                  <div className="form-label-group">
-                    <input type="password" id="inputPassword" className="form-control" placeholder="Password"  />
-                    <label htmlFor="inputPassword">Password</label>
-                  </div>
-                  <div className="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                    <label className="custom-control-label" htmlFor="customCheck1">Remember password</label>
-                  </div>
-                  <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-                  <hr className="my-4" />
-                  <button className="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i className="fab fa-google mr-2" /> Sign in with Google</button>
-                  <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i className="fab fa-facebook-f mr-2" /> Sign in with Facebook</button>
+                  <Input
+                    label={"Email Address"}
+                    type={'email'}
+                    value={email}
+                    handleInputChange={(e) => setEmailAddress(e.target.value)}
+                    error={emailError}
+                    placeholder={"Email address"}
+                    errorMessage={ERROR_INVALID_EMAIL}
+                    id="inputEmail"
+                  />
+
+                  <Input
+                    label={"Password"}
+                    type={'password'}
+                    value={password}
+                    handleInputChange={(e) => setPassword(e.target.value)}
+                    error={passwordError}
+                    placeholder={"Password"}
+                    errorMessage={ERROR_INVALID_PASSWORD}
+                    id="inputPassword"
+                  />
+
+                    <Button type={'button'} onClick={() => disableButton ? "" : authenticateUser()} label={"Sign In"} disableBtn={disableButton} />
+
+                    <Link className="btn btn-lg btn-primary btn-block text-uppercase" to="/register">Sign Up</Link>
+                    <hr className="my-4" />
+                    <p className="forgot-password text-right">
+                        <Link to="/forgot-password">Forgot password?</Link>
+                    </p>
                 </form>
               </div>
             </div>
