@@ -6,6 +6,7 @@ import Login from 'tt-frontend-pages/Authentication/Login';
 import Register from 'tt-frontend-pages/Authentication/Register';
 import ForgotPassword from 'tt-frontend-pages/Authentication/ForgotPassword';
 import ResetPassword from 'tt-frontend-pages/Authentication/ResetPassword';
+import Board from 'tt-frontend-pages/Board/Board';
 
 const Routes = () => {
   return (
@@ -14,6 +15,7 @@ const Routes = () => {
       <Route path={"/register"} component={Register} exact />
       <Route path={"/forgot-password"} component={ForgotPassword} exact />
       <Route path={"/reset-password"} component={ResetPassword} exact />
+      <Route path={"/board"} component={Board} exact />
 
       <Route path="/" render={() => <Redirect to={'/login'} />} exact />
     </Switch>
