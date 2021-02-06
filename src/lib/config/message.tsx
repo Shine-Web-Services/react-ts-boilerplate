@@ -30,7 +30,7 @@ export const API_ERROR_MESSAGES = {
 		"tokenVerified": "Token verified successfully",
 		"signUpEmailVerified": "",
 		"passwordResetSuccess": "Password reset successfully",
-		"confirmRegistrationEmail": "Registered Successfully",
+		"confirmRegistrationEmail": "Registered Successfully. Please login to continue.",
 		"emailNotRegistered": "Email not found",
 		"verifyLinkSent" : "Reset password link has been sent on your registered email. Link valid for 1 hour."
 	}
