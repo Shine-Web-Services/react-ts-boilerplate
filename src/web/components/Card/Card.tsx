@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CardBody from "tt-frontend-components/Card/CardBody.tsx";
-
+import Button from "tt-frontend-components/Button/Button.tsx";
 const Card = (props) => {
 
   return (
@@ -13,6 +13,13 @@ const Card = (props) => {
             <div className="dropzone rounded"> &nbsp; </div>
           </div>
         </div>
+        {props.type == 'To-Do' && 
+          <Button 
+            type={'button'} 
+            onClick={() => props.addTaskHandler()} 
+            label={"Add New Task"} 
+          />
+        }
       </div>
     </React.Fragment>
   );
