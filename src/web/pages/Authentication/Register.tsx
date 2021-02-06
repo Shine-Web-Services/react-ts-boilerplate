@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_EMAIL, ERROR_INVALID_PASSWORD, ERROR_FIRST_NAME, ERROR_LAST_NAME, ERROR_INVALID_CONFIRM_PASSWORD, ERROR_EMPTY_CONFIRM_PASSWORD} from "tt-frontend-message";
+import { useStoreActions } from 'easy-peasy';
+
+
 
 interface RouteProps {
   history: any;
@@ -28,6 +31,8 @@ const Register: React.FC<RouteProps> = ({ history }): JSX.Element => {
 
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  const userSignUp = useStoreActions((actions) => actions.authentication.userSignUp);
 
   const signupUser = async() => {
     setFirstnameError(false);
@@ -80,7 +85,7 @@ const Register: React.FC<RouteProps> = ({ history }): JSX.Element => {
     setDisableButton(true);
 
     let formData = {email: email, password: password}
-    let response = await signUpUser(formData);
+    let response = await userSignUp(formData);
 
     setDisableButton(false);
 

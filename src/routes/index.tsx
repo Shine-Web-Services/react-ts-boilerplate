@@ -15,7 +15,7 @@ const Routes = () => {
       <Route path={"/forgot-password"} component={ForgotPassword} exact />
       <Route path={"/reset-password"} component={ResetPassword} exact />
 
-      <Route path="/" render={() => <Redirect to={POSITIVLY_LOGIN} />} exact />
+      <Route path="/" render={() => <Redirect to={'/login'} />} exact />
     </Switch>
   );
 };

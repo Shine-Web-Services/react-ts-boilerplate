@@ -1,5 +1,11 @@
 import { Action, action, thunk, Thunk } from 'easy-peasy';
 import crypt from 'crypto-js';
+import {
+  userSignUp,
+  loginUser,
+  logoutUser
+} from 'tt-frontend-api/AuthApi.js';
+import { toast } from 'react-toastify';
 
 interface UserAuth {
   userName: string;
@@ -26,6 +32,7 @@ export interface AuthenticationModel {
   setAdvisorRoles: Action<AuthenticationModel, string[]>;
   setWidgetToken: Action<AuthenticationModel, string>;
   userDirectLogin: Thunk<AuthenticationModel>;
+  userSignUp: Thunk<AuthenticationModel>;
   fetchAdvisorAssets: Thunk<AuthenticationModel>;
   fetchAdvisorRoles: Thunk<AuthenticationModel>;
   createAdvisorAccount: Thunk<AuthenticationModel>;
@@ -73,13 +80,33 @@ const authenticationModel: AuthenticationModel = {
   setMarketingCampaign: action((state, payload) => {
     state.marketingCampaign = payload;
   }),
+
   userDirectLogin: thunk(async (actions, payload, { getStoreActions }) => {
-    
+
   }),
+
+  userSignUp : thunk(async (actions, payload, { getStoreActions }) => {
+    let response = await userSignUp(payload);
+		toast.dismiss();
+
+    if (!response) {
+      toast.error('unable to call API');
+      return false
+    }
+
+		if (response.status != 200) {
+			toast.error(response.message)
+			return false
+		} else {
+			toast.success(response.message);
+			return true;
+		}
+  }),
+
   createAdvisorAccount: thunk(async (actions, payload) => {
-    
+
   }),
-  
+
 };
 
 export default authenticationModel;

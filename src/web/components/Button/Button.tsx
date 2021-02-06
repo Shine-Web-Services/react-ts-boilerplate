@@ -9,8 +9,8 @@ const Button = (props) => {
       <button type="button" className={btnClass} onClick={() =>  props.onClick()}>
         {props.disableBtn ? loadingMsg : props.label}
         {props.disableBtn &&
-          <div class="spinner-border " role="status">
-            <span class="sr-only">Loading...</span>
+          <div className="spinner-border " role="status">
+            <span className="sr-only">Loading...</span>
           </div>
         }
       </button>

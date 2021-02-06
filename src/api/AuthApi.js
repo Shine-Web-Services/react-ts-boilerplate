@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { getToken, setToken } from 'classimize-utils/Service.js';
+import { getToken, setToken } from 'tt-frontend-utils/Service.js';
+
 const AuthInstance = axios.create();
 AuthInstance.interceptors.response.use(function (response) {
-  if(response.headers) {
+  if (response.headers) {
     localStorage.setItem('api_token', response.headers.api_token);
   }
   return response;
@@ -12,18 +13,27 @@ AuthInstance.interceptors.response.use(function (response) {
 
 AuthInstance.interceptors.request.use(function (config) {
     const token = getToken();
-    if(token) {
+    if (token) {
       config.headers.Authorization =  'Bearer '+token;
     }
 
     return config;
 });
 
-const apiUrl = process.env.REACT_APP_CLASSIMIZE_API;
+const apiUrl = process.env.REACT_APP_TT_API;
+
+export const userSignUp = async (formData) => {
+	try {
+	  let response = await AuthInstance.post(apiUrl+'/auth/register', formData);
+	  return response.data;
+	} catch(error) {
+	  return error.response.data;
+	}
+};
 
 export const loginUser = async (formData) => {
-	try{
-	  let response = await AuthInstance.post(apiUrl+'/admin/login', formData);	  
+	try {
+	  let response = await AuthInstance.post(apiUrl+'/auth/login', formData);
 	  return response.data;
 	} catch(error) {
 	  return error.response.data;
@@ -32,7 +42,7 @@ export const loginUser = async (formData) => {
 
 export const logoutUser = async () => {
 	try{
-	  let response = await AuthInstance.get(apiUrl+'/admin/logout');	  
+	  let response = await AuthInstance.get(apiUrl+'/admin/logout');
 	  return response.data;
 	} catch(error) {
 	  return error.response.data;
