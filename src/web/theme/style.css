@@ -139,3 +139,7 @@ body {
   color: red;
   padding-left: 20px;
 }
+
+.floatRight {
+  float: right!important;
+}

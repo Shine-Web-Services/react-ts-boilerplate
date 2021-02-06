@@ -5,6 +5,7 @@ import Button from "tt-frontend-components/Button/Button.tsx";
 import Card from "tt-frontend-components/Card/Card.tsx";
 import {TASK_PRICE} from "tt-frontend-constants";
 import { useStoreActions } from 'easy-peasy';
+import {clearUserData} from 'tt-frontend-utils/Service'
 
 interface RouteProps {
   history: any;
@@ -17,7 +18,7 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
   const [inProgressBoard, setInProgressBoard]   = useState<any>([]);
   const [completeBoard, setCompleteBoard]       = useState<any>([]);
 
-  
+
 
   let ticketBtnClickHandler = (data) => {
     let eventType = data.type
@@ -25,7 +26,7 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
     let toDoState       = JSON.parse(JSON.stringify(toDoBoard));
     let inProgressState = JSON.parse(JSON.stringify(inProgressBoard));
     let completeBoardState = JSON.parse(JSON.stringify(completeBoard));
-    
+
     if (eventType === "todo") {
       let index = toDoState.findIndex(e => e.id == data.id);
       if(index > -1) {
@@ -59,13 +60,21 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
     newTask.cardDescription = newTask.cardDescription + id;
     toDoBoard.push(newTask);
     setToDoBoard(toDoBoard);
-    setMaxID(id); 
+    setMaxID(id);
   }
 
   return (
     <React.Fragment>
       <div className="container-fluid pt-3">
-        <h3 className="font-weight-light text-white">Kanban Board</h3>
+        <h3 className="font-weight-light text-white">Kanban Board
+
+          <span className="text-right floatRight">
+            <button type="button" onClick={clearUserData} className="btn btn-primary btn-sm text-right">
+              Log out
+            </button>
+          </span>
+        </h3>
+
 
         <div className="row flex-row flex-sm-nowrap py-3">
           <div className="col-sm-4 col-md-4 col-xl-4">

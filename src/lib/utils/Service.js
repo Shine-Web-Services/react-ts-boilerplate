@@ -1,8 +1,13 @@
 import axios from 'axios';
 
 export function isLoggedIn() {
-  return localStorage.getItem('isLoggedIn');
+  if (localStorage.getItem('isLoggedIn') && localStorage.getItem('auth_token')) {
+    return true
+  } else {
+    return false
+  }
 }
+
 export function handleInvalidToken() {
   //clearToken();
   clearUserData();
@@ -10,10 +15,10 @@ export function handleInvalidToken() {
 }
 
 export function clearUserData() {
-  localStorage.removeItem('userData');
+  localStorage.removeItem('auth_token');
   localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('loggedInUser');
   localStorage.removeItem('api_token');
+  window.location.href = "/login";
 }
 
 export function getUser() {
