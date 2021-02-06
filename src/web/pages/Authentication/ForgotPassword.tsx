@@ -3,17 +3,18 @@ import { Link } from 'react-router-dom';
 import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_EMAIL} from "tt-frontend-message";
+import { useStoreActions } from 'easy-peasy';
 
 interface RouteProps {
   history: any;
 }
 
 const ForgotPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const [email, setEmailAddress] = useState<string>('');
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [disableButton, setDisableButton] = useState<boolean>(false);
-  const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
+  const [email, setEmailAddress]           = useState<string>('');
+  const [emailError, setEmailError]        = useState<boolean>(false);
+  const [disableButton, setDisableButton]  = useState<boolean>(false);
+  const mailformat                         = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const forgotPassword                     = useStoreActions((actions) => actions.authentication.forgotPassword);
 
   const authenticateUser = async() => {
     setEmailError(false);
@@ -33,10 +34,9 @@ const ForgotPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
     setDisableButton(true);
 
     let formData = {email: email}
-    let response = await loginUser(formData);
+    let response = await forgotPassword(formData);
 
     setDisableButton(false);
-
   }
 
   return (

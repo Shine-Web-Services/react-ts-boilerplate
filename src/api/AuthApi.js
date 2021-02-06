@@ -40,9 +40,27 @@ export const loginUser = async (formData) => {
 	}
 };
 
+export const forgotPassword = async (formData) => {
+	try {
+	  let response = await AuthInstance.post(apiUrl+'/auth/forgot-password', formData);
+	  return response.data;
+	} catch(error) {
+	  return error.response.data;
+	}
+};
+
+export const resetPassword = async (formData) => {
+	try {
+	  let response = await AuthInstance.post(apiUrl+'/auth/reset-password', formData);
+	  return response.data;
+	} catch(error) {
+	  return error.response.data;
+	}
+};
+
 export const logoutUser = async () => {
 	try{
-	  let response = await AuthInstance.get(apiUrl+'/admin/logout');
+	  let response = await AuthInstance.get(apiUrl+'/auth/logout');
 	  return response.data;
 	} catch(error) {
 	  return error.response.data;

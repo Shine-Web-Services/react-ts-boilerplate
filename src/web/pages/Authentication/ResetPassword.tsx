@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_PASSWORD, ERROR_INVALID_CONFIRM_PASSWORD, ERROR_EMPTY_CONFIRM_PASSWORD} from "tt-frontend-message";
+import { useStoreActions } from 'easy-peasy';
 
 interface RouteProps {
   history: any;
 }
 
 const ResetPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword]           = useState<string>('');
   const [passwordError, setPasswordError] = useState<boolean>(false);
-
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword]           = useState<string>('');
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
-
   const [doNotMatchError, setDoNotMatchError] = useState<boolean>(false);
+  const [disableButton, setDisableButton]     = useState<boolean>(false);
+  const resetPassword                        = useStoreActions((actions) => actions.authentication.resetPassword);
 
-  const [disableButton, setDisableButton] = useState<boolean>(false);
 
   const signupUser = async() => {
     setPasswordError(false);
@@ -44,7 +44,7 @@ const ResetPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
     setDisableButton(true);
 
     let formData = {password: password}
-    let response = await signUpUser(formData);
+    let response = await resetPassword(formData);
 
     setDisableButton(false);
 

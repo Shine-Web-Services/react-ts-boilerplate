@@ -3,18 +3,20 @@ import { Link } from 'react-router-dom';
 import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_EMAIL, ERROR_INVALID_PASSWORD} from "tt-frontend-message";
+import { useStoreActions } from 'easy-peasy';
 
 interface RouteProps {
   history: any;
 }
 
 const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const [email, setEmailAddress] = useState<string>('');
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmailAddress]          = useState<string>('');
+  const [emailError, setEmailError]       = useState<boolean>(false);
+  const [password, setPassword]           = useState<string>('');
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [disableButton, setDisableButton] = useState<boolean>(false);
-  const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const mailformat                        = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const loginUser                         = useStoreActions((actions) => actions.authentication.userDirectLogin);
 
   const authenticateUser = async() => {
     setEmailError(false);

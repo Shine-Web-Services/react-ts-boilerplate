@@ -5,31 +5,23 @@ import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_EMAIL, ERROR_INVALID_PASSWORD, ERROR_FIRST_NAME, ERROR_LAST_NAME, ERROR_INVALID_CONFIRM_PASSWORD, ERROR_EMPTY_CONFIRM_PASSWORD} from "tt-frontend-message";
 import { useStoreActions } from 'easy-peasy';
 
-
-
 interface RouteProps {
   history: any;
 }
 
 const Register: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const [firstname, setFirstname] = useState<string>('');
+  const [firstname, setFirstname]           = useState<string>('');
   const [firstnameError, setFirstnameError] = useState<boolean>(false);
-
-  const [lastname, setLastname] = useState<string>('');
-  const [lastnameError, setLastnameError] = useState<boolean>(false);
-
-  const [email, setEmailAddress] = useState<string>('');
-  const [emailError, setEmailError] = useState<boolean>(false);
-
-  const [password, setPassword] = useState<string>('');
-  const [passwordError, setPasswordError] = useState<boolean>(false);
-
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [lastname, setLastname]             = useState<string>('');
+  const [lastnameError, setLastnameError]   = useState<boolean>(false);
+  const [email, setEmailAddress]            = useState<string>('');
+  const [emailError, setEmailError]         = useState<boolean>(false);
+  const [password, setPassword]             = useState<string>('');
+  const [passwordError, setPasswordError]   = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword]           = useState<string>('');
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false);
-
   const [doNotMatchError, setDoNotMatchError] = useState<boolean>(false);
-
-  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [disableButton, setDisableButton]     = useState<boolean>(false);
   const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const userSignUp = useStoreActions((actions) => actions.authentication.userSignUp);

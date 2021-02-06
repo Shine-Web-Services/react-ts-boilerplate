@@ -3,7 +3,9 @@ import crypt from 'crypto-js';
 import {
   userSignUp,
   loginUser,
-  logoutUser
+  logoutUser,
+  forgotPassword,
+  resetPassword
 } from 'tt-frontend-api/AuthApi.js';
 import { toast } from 'react-toastify';
 
@@ -33,12 +35,13 @@ export interface AuthenticationModel {
   setWidgetToken: Action<AuthenticationModel, string>;
   userDirectLogin: Thunk<AuthenticationModel>;
   userSignUp: Thunk<AuthenticationModel>;
+  forgotPassword: Thunk<AuthenticationModel, string>;
   fetchAdvisorAssets: Thunk<AuthenticationModel>;
   fetchAdvisorRoles: Thunk<AuthenticationModel>;
   createAdvisorAccount: Thunk<AuthenticationModel>;
   registerAdvisor: Thunk<AuthenticationModel, any>;
   authenticateAdvisor: Thunk<AuthenticationModel, UserAuth>;
-  forgotPassword: Thunk<AuthenticationModel, string>;
+
   resetPassword: Thunk<AuthenticationModel, any>;
   adminResetPassword: Thunk<AuthenticationModel, any>;
   logoutAdvisor: Thunk<AuthenticationModel, any>;
@@ -82,7 +85,21 @@ const authenticationModel: AuthenticationModel = {
   }),
 
   userDirectLogin: thunk(async (actions, payload, { getStoreActions }) => {
+    let response = await loginUser(payload);
+		toast.dismiss();
 
+    if (!response) {
+      toast.error('Unable to call API');
+      return false
+    }
+
+		if (!response.success) {
+			toast.error(response.message)
+			return false
+		} else {
+			toast.success(response.message);
+			return true;
+		}
   }),
 
   userSignUp : thunk(async (actions, payload, { getStoreActions }) => {
@@ -90,11 +107,47 @@ const authenticationModel: AuthenticationModel = {
 		toast.dismiss();
 
     if (!response) {
-      toast.error('unable to call API');
+      toast.error('Unable to call API');
       return false
     }
 
-		if (response.status != 200) {
+		if (!response.success) {
+			toast.error(response.message)
+			return false
+		} else {
+			toast.success(response.message);
+			return true;
+		}
+  }),
+
+  forgotPassword : thunk(async (actions, payload, { getStoreActions }) => {
+    let response = await forgotPassword(payload);
+		toast.dismiss();
+
+    if (!response) {
+      toast.error('Unable to call API');
+      return false
+    }
+
+		if (!response.success) {
+			toast.error(response.message)
+			return false
+		} else {
+			toast.success(response.message);
+			return true;
+		}
+  }),
+
+  resetPassword : thunk(async (actions, payload, { getStoreActions }) => {
+    let response = await resetPassword(payload);
+		toast.dismiss();
+
+    if (!response) {
+      toast.error('Unable to call API');
+      return false
+    }
+
+		if (!response.success) {
 			toast.error(response.message)
 			return false
 		} else {
