@@ -47,7 +47,7 @@ const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
     setDisableButton(false);
 
     if (response) {
-      history.push('/dashboard');
+      history.push('/board');
     }
   }
 
