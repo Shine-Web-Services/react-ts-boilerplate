@@ -18,7 +18,24 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "tt-frontend-theme": ["src/web/theme"],
+      "tt-frontend-fonts": ["src/assets/fonts"],
+      "tt-frontend-images": ["src/assets/images"],
+      "tt-frontend-constants": ["src/constants"],
+      "tt-frontend-api": ["src/api"],
+      "tt-frontend-utils": ["src/lib/utils"],
+      "tt-frontend-validation": ["src/lib/utils/Validators"],
+      "tt-frontend-history": ["src/history"],
+      "tt-frontend-model": ["src/model"],
+      "tt-frontend-redux": ["src/store"],
+      "tt-frontend-framework": ["src/web/framework"],
+      "tt-frontend-components": ["src/web/components"],
+      "tt-frontend-pages": ["src/web/pages"],
+      "tt-frontend-routes": ["src/routes"],
+      "tt-frontend-message": ["src/lib/config/message"],
+    }
   },
   "include": [
     "src"

@@ -5,10 +5,10 @@ interface RouteProps {
   history: any;
 }
 
-const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
+const Register: React.FC<RouteProps> = ({ history }): JSX.Element => {
   const [userName, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  console.log('loginnnnn')
+  
 
   useEffect(() => {
     
@@ -77,4 +77,4 @@ const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
   );
 };
 
-export default Login;
+export default Register;

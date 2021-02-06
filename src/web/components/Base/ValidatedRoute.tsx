@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import Spinner from 'positivly-framework/Spinner/Spinner';
-import { positivlyActions, positivlyState } from 'positivly-hooks/Positivly';
 import {
   POSITIVLY_LOGIN,
   POSITIVLY_HOME,
   POSITIVLY_REGISTER,
   POSITIVLY_FORGOT_PWD,
   POSITIVLY_RESET_PWD,
-} from 'positivly-constants';
+} from 'tt-frontend-constants';
 
 interface RouteProps {
   component: any;
@@ -17,10 +15,9 @@ interface RouteProps {
 const ValidatedRoute: React.FC<RouteProps> = React.memo(
   ({ component: Component, ...rest }): JSX.Element => {
     const [isActive, setIsActive] = useState<boolean>();
-    const sessionActive = positivlyState((state: any) => state.positivly.sessionActive);
-    const isSessionActive = positivlyState((state: any) => state.positivly.isSessionActive);
 
-    useEffect(() => {
+
+    /*useEffect(() => {
       checkActiveStatus();
     }, [sessionActive]);
 
@@ -29,6 +26,7 @@ const ValidatedRoute: React.FC<RouteProps> = React.memo(
       setIsActive(status || sessionActive);
     };
 
+    */
     const isExempted = path => {
       return (
         path === POSITIVLY_LOGIN ||
@@ -58,7 +56,9 @@ const ValidatedRoute: React.FC<RouteProps> = React.memo(
             }
           />
         ) : (
-          <Spinner />
+          <React.Fragment>
+          
+          </React.Fragment>    
         )}
       </React.Fragment>
     );

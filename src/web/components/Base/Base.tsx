@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Loader from 'positivly-framework/Loader/Loader';
-import Notification from 'positivly-framework/Notification/Notification';
-import { positivlyActions, positivlyState } from 'positivly-hooks/Positivly';
+import Loader from 'tt-frontend-framework/Loader/Loader';
+import Notification from 'tt-frontend-framework/Notification/Notification';
+import { positivlyActions, positivlyState } from 'tt-frontend-hooks/Positivly';
 
 const Base: React.FC = React.memo(
   ({}): JSX.Element => {

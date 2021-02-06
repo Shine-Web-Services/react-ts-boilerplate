@@ -1,5 +1,5 @@
 import { createTypedHooks } from 'easy-peasy';
-import AuthenticationModel from 'positivly-model/Authentication';
+import AuthenticationModel from 'tt-frontend-model/Authentication';
 
 const typedHooks = createTypedHooks<AuthenticationModel>();
 

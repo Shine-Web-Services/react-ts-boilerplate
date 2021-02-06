@@ -81,7 +81,7 @@ export const DESIGN_CUSTOM_CORE = 'custom';
 //Crm Systems
 export const CRM_HUBSPOT = 'HUBSPOT';
 
-export const POSITIVLY_JWT = 'positivly-token';
+export const POSITIVLY_JWT = 'tt-frontend-token';
 
 //Portfolio Period Options
 export const PORTFOLIO_PERIOD_ONE_YEAR = 'LAST1YEAR';
