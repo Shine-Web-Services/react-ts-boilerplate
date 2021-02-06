@@ -10,6 +10,14 @@ interface RouteProps {
 }
 
 const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
+  let toToBoard = [{id: "task-1", cardNumber: "TK-151", cardDescription:"Create a test TO DO app", type: "todo"}]
+
+  let inProgressBoard = []
+  let completeBoard   = []
+
+  //let inProgressBoard = [{id: "task-3", cardNumber: "TK-153", cardDescription:"Create a Kanban Board", type: "inprogress"}]
+
+  //let completeBoard = [{id: "task-4", cardNumber: "TK-154", cardDescription:"Add Forgot Password", type: "complete"}, {id: "task-5", cardNumber: "TK-155", cardDescription:"Add Reset Password", type: "complete"}]
 
   return (
     <React.Fragment>
@@ -18,13 +26,13 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
 
         <div className="row flex-row flex-sm-nowrap py-3">
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="To Do" id="task-1" cardNumber="TK-151" cardDescription="Create a test TO DO app." cardSection="todo"/>
+            <Card type="To-Do" data={toToBoard}/>
           </div>
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="In-Progress" id="task-2" cardNumber="TK-152" cardDescription="Add validations to login." cardSection="inprogress"/>
+            <Card type="In-Progress" data={inProgressBoard}/>
           </div>
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="Complete" id="task-3" cardNumber="TK-153" cardDescription="Complete Stripe Integration" cardSection="complete"/>
+            <Card type="Complete" data={completeBoard}/>
           </div>
         </div>
       </div>
