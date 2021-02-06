@@ -6,9 +6,9 @@ const CardBody = (props) => {
   const [isPaused, setIsPaused] = useState(false)
   const countRef = useRef(null)
   //const elementsRef = useRef((props.data) ? props.data.map(() => createRef()) : null);
-  
+
   useEffect(() => {
-    if(props.parentType === 'In-Progress' ) {
+    if(props.parentType && props.parentType === 'In-Progress' ) {
       handleStart();
     }
   }, [])
@@ -48,7 +48,7 @@ const CardBody = (props) => {
     return `${getHours} : ${getMinutes} : ${getSeconds}`
   }
   return (
-    <React.Fragment>     
+    <React.Fragment>
       <div className="card draggable shadow-sm" >
         <div className="card-body p-2">
           <div className="card-title">
@@ -60,14 +60,14 @@ const CardBody = (props) => {
           <p>
             {props.bodyObj.cardDescription}
           </p>
-          {(props.bodyObj.type !== 'complete') && 
-            <button 
-              onClick={() => handleAction(props.bodyObj, props.parentType)} 
+          {(props.bodyObj.type !== 'complete') &&
+            <button
+              onClick={() => handleAction(props.bodyObj, props.parentType)}
               className="btn btn-primary btn-sm">{(props.bodyObj.type === 'todo') ? 'Start' : (props.bodyObj.type === 'inprogress') ? 'Resolve' : ''}
             </button>
           }
         </div>
-      </div>        
+      </div>
 
     </React.Fragment>
   );
