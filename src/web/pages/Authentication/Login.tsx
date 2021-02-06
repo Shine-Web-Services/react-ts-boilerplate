@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_EMAIL, ERROR_INVALID_PASSWORD} from "tt-frontend-message";
-import validator from 'validator';
 
 interface RouteProps {
   history: any;
@@ -16,11 +15,6 @@ const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [disableButton, setDisableButton] = useState<boolean>(false);
   const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-  useEffect(() => {
-
-  }, []);
-
 
   const authenticateUser = async() => {
     setEmailError(false);
@@ -86,13 +80,13 @@ const Login: React.FC<RouteProps> = ({ history }): JSX.Element => {
                     id="inputPassword"
                   />
 
-                    <Button type={'button'} onClick={() => disableButton ? "" : authenticateUser()} label={"Sign In"} disableBtn={disableButton} />
+                  <Button type={'button'} onClick={() => disableButton ? "" : authenticateUser()} label={"Sign In"} disableBtn={disableButton} />
 
-                    <Link className="btn btn-lg btn-primary btn-block text-uppercase" to="/register">Sign Up</Link>
-                    <hr className="my-4" />
-                    <p className="forgot-password text-right">
-                        <Link to="/forgot-password">Forgot password?</Link>
-                    </p>
+                  <Link className="btn btn-lg btn-primary btn-block text-uppercase" to="/register">Sign Up</Link>
+                  <hr className="my-4" />
+                  <p className="forgot-password text-right">
+                      <Link to="/forgot-password">Forgot password?</Link>
+                  </p>
                 </form>
               </div>
             </div>
