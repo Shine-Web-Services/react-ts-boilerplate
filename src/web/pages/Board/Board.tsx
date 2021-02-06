@@ -19,6 +19,10 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
 
   //let completeBoard = [{id: "task-4", cardNumber: "TK-154", cardDescription:"Add Forgot Password", type: "complete"}, {id: "task-5", cardNumber: "TK-155", cardDescription:"Add Reset Password", type: "complete"}]
 
+  const ticketBtnClickHandler = () => {
+    console.log('1')
+  }
+
   return (
     <React.Fragment>
       <div className="container-fluid pt-3">
@@ -26,13 +30,13 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
 
         <div className="row flex-row flex-sm-nowrap py-3">
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="To-Do" data={toToBoard}/>
+            <Card type="To-Do" clickHandler={() => ticketBtnClickHandler()} data={toToBoard}/>
           </div>
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="In-Progress" data={inProgressBoard}/>
+            <Card type="In-Progress" clickHandler={() => ticketBtnClickHandler()} data={inProgressBoard}/>
           </div>
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="Complete" data={completeBoard}/>
+            <Card type="Complete" clickHandler={() => ticketBtnClickHandler()} data={completeBoard}/>
           </div>
         </div>
       </div>

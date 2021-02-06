@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 const Button = (props) => {
 
   const [btnClass, setBtnClass] = useState("btn btn-lg btn-primary btn-block text-uppercase");
