@@ -4,12 +4,14 @@ import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import {ERROR_INVALID_PASSWORD, ERROR_INVALID_CONFIRM_PASSWORD, ERROR_EMPTY_CONFIRM_PASSWORD} from "tt-frontend-message";
 import { useStoreActions } from 'easy-peasy';
-
+import queryString from 'query-string';
 interface RouteProps {
   history: any;
 }
 
 const ResetPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
+  const queryStrings = queryString.parse(window.location.search);
+  const token: any = queryStrings['token'];
   const [password, setPassword]           = useState<string>('');
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword]           = useState<string>('');
@@ -43,7 +45,7 @@ const ResetPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
 
     setDisableButton(true);
 
-    let formData = {password: password}
+    let formData = {password: password, token}
     let response = await resetPassword(formData);
 
     setDisableButton(false);
@@ -84,7 +86,7 @@ const ResetPassword: React.FC<RouteProps> = ({ history }): JSX.Element => {
                     id="inputConfirmPassword"
                   />
 
-                  <Button type={'button'} onClick={() => disableButton ? "" : signupUser()} label={"Sign Up"} disableBtn={disableButton} />
+                  <Button type={'button'} onClick={() => disableButton ? "" : signupUser()} label={"Reset Password"} disableBtn={disableButton} />
 
                   <hr className="my-4" />
                   <p className="forgot-password text-right">

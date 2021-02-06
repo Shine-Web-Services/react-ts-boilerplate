@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Input from "tt-frontend-components/Input/Input.tsx";
 import Button from "tt-frontend-components/Button/Button.tsx";
 import Card from "tt-frontend-components/Card/Card.tsx";
+import {TASK_PRICE} from "tt-frontend-constants";
 import { useStoreActions } from 'easy-peasy';
 
 interface RouteProps {
@@ -10,17 +11,13 @@ interface RouteProps {
 }
 
 const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const task                                    = {id: "", cardNumber: "", cardDescription:"New Task - ", type: "todo"};
+  const task                                    = {id: "", cardNumber: "", cardDescription:"New Task - ", type: "todo", time: "", price : ""};
   const [maxId, setMaxID]                       = useState<number>(151);
-  const [toDoBoard, setToDoBoard]               = useState<any>([{id: "task-151", cardNumber: "TK-151", cardDescription:"Create a test TO DO app", type: "todo"}]);
+  const [toDoBoard, setToDoBoard]               = useState<any>([{id: "task-151", cardNumber: "TK-151", cardDescription:"Create a test TO DO app", type: "todo", time: "", price : ""}]);
   const [inProgressBoard, setInProgressBoard]   = useState<any>([]);
   const [completeBoard, setCompleteBoard]       = useState<any>([]);
 
-  //let toDoBoard = [{id: "task-151", cardNumber: "TK-151", cardDescription:"Create a test TO DO app", type: "todo"}]
-
-  //let inProgressBoard = [{id: "task-3", cardNumber: "TK-153", cardDescription:"Create a Kanban Board", type: "inprogress"}]
-
-  //let completeBoard = [{id: "task-4", cardNumber: "TK-154", cardDescription:"Add Forgot Password", type: "complete"}, {id: "task-5", cardNumber: "TK-155", cardDescription:"Add Reset Password", type: "complete"}]
+  
 
   let ticketBtnClickHandler = (data) => {
     let eventType = data.type
@@ -44,6 +41,8 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
       if(index > -1) {
         inProgressState.splice(index, 1);
         setInProgressBoard(inProgressState);
+        console.log(localData);
+        localData.price = Math.round((localData.time / 3600)  * TASK_PRICE * 100 ) / 100;
         localData.type = 'complete';
         completeBoardState.push(localData);
 
@@ -76,7 +75,7 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
             <Card type="In-Progress" clickHandler={(data) => ticketBtnClickHandler(data)} data={inProgressBoard}/>
           </div>
           <div className="col-sm-4 col-md-4 col-xl-4">
-            <Card type="Complete" data={completeBoard}/>
+            <Card type="Done" data={completeBoard}/>
           </div>
         </div>
       </div>

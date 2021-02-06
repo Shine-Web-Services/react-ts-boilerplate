@@ -1,2 +1,2 @@
 //Custom
-export const CUSTOM = 'custom';
+export const TASK_PRICE = 20;

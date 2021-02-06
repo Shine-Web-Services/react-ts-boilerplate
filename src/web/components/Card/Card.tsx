@@ -9,8 +9,17 @@ const Card = (props) => {
         <div className="card-body">
           <h6 className="card-title text-uppercase text-truncate py-2">{props.type}</h6>
           <div className="items border border-light">
-            <CardBody {...props} onChildClick={(obj) => props.clickHandler(obj)}/>
-            <div className="dropzone rounded"> &nbsp; </div>
+           {props && props.data.map((obj, idx) => {
+             return(
+                <CardBody 
+                  key={'card-'+idx} 
+                  bodyObj={obj} 
+                  parentType={props.type} 
+                  onChildClick={(obj) => props.clickHandler(obj)}
+                />
+               )
+            })
+           }
           </div>
         </div>
         {props.type == 'To-Do' && 

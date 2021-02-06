@@ -1,5 +1,6 @@
 import { Action, action, thunk, Thunk } from 'easy-peasy';
 import crypt from 'crypto-js';
+import {API_ERROR_MESSAGES} from "tt-frontend-message";
 import {
   userSignUp,
   loginUser,
@@ -88,16 +89,11 @@ const authenticationModel: AuthenticationModel = {
     let response = await loginUser(payload);
 		toast.dismiss();
 
-    if (!response) {
-      toast.error('Unable to call API');
-      return false
-    }
-
 		if (!response.success) {
-			toast.error(response.message)
+			toast.error(API_ERROR_MESSAGES[response.messageCode])
 			return false
 		} else {
-			toast.success(response.message);
+			toast.success(API_ERROR_MESSAGES[response.messageCode])
 			return true;
 		}
   }),
@@ -106,16 +102,17 @@ const authenticationModel: AuthenticationModel = {
     let response = await userSignUp(payload);
 		toast.dismiss();
 
-    if (!response) {
-      toast.error('Unable to call API');
-      return false
-    }
+     console.log(response);
 
 		if (!response.success) {
-			toast.error(response.message)
+      if(response && response.errors && response.errors.password) {
+        toast.error(response.errors.password.message);
+        return false;  
+      }
+			toast.error(API_ERROR_MESSAGES[response.messageCode])
 			return false
 		} else {
-			toast.success(response.message);
+			toast.success(API_ERROR_MESSAGES[response.messageCode])
 			return true;
 		}
   }),
@@ -130,10 +127,10 @@ const authenticationModel: AuthenticationModel = {
     }
 
 		if (!response.success) {
-			toast.error(response.message)
+			toast.error(API_ERROR_MESSAGES[response.messageCode])
 			return false
 		} else {
-			toast.success(response.message);
+			toast.success(API_ERROR_MESSAGES[response.messageCode])
 			return true;
 		}
   }),
@@ -148,10 +145,10 @@ const authenticationModel: AuthenticationModel = {
     }
 
 		if (!response.success) {
-			toast.error(response.message)
+			toast.error(API_ERROR_MESSAGES[response.messageCode])
 			return false
 		} else {
-			toast.success(response.message);
+			toast.success(API_ERROR_MESSAGES[response.messageCode])
 			return true;
 		}
   }),

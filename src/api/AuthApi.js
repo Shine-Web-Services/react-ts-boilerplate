@@ -8,7 +8,18 @@ AuthInstance.interceptors.response.use(function (response) {
   }
   return response;
 }, function (error) {
-   return error;
+   if(!error.response) {
+      return {data : {data : "", message : "server_error", status : 500}}
+   } else {
+      if(error.response.status == 500) {
+        return {data : {data : "", message : "server_error", status : 500}}
+      }
+      console.log(error);/*
+      if(error.response.status == 422) {
+        return {data : {data : "", message : error.password, status : 500}}
+      }*/
+      return Promise.reject(error);
+   }
 });
 
 AuthInstance.interceptors.request.use(function (config) {

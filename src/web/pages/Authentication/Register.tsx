@@ -76,7 +76,7 @@ const Register: React.FC<RouteProps> = ({ history }): JSX.Element => {
 
     setDisableButton(true);
 
-    let formData = {email: email, password: password}
+    let formData = {email: email, password: password, firstName : firstname, lastName: lastname}
     let response = await userSignUp(formData);
 
     setDisableButton(false);
