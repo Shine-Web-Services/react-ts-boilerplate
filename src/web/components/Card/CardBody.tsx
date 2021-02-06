@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const CardBody = (props) => {
-  console.log(props)
+
   return (
     <React.Fragment>
       {
@@ -16,7 +16,7 @@ const CardBody = (props) => {
                 <p>
                   {obj.cardDescription}
                 </p>
-                {(obj.type !== 'complete') && <button onClick={() => props.onClick()} className="btn btn-primary btn-sm">{(obj.type === 'todo') ? 'Start' : (obj.type === 'inprogress') ? 'Resolve' : ''}</button>}
+                {(obj.type !== 'complete') && <button onClick={() => props.onChildClick(obj)} className="btn btn-primary btn-sm">{(obj.type === 'todo') ? 'Start' : (obj.type === 'inprogress') ? 'Resolve' : ''}</button>}
               </div>
             </div>
           )
