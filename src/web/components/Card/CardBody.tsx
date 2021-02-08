@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 
 const CardBody = (props) => {
-  const [timer, setTimer] = useState(0)
-  const [isActive, setIsActive] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-  const countRef = useRef(null)
-  //const elementsRef = useRef((props.data) ? props.data.map(() => createRef()) : null);
+  const [timer, setTimer] = useState(props.bodyObj.time)
+  const countRef = createRef(props.bodyObj.id)
 
   useEffect(() => {
     if(props.parentType && props.parentType === 'In-Progress' ) {
@@ -13,9 +10,14 @@ const CardBody = (props) => {
     }
   }, [])
 
+  useEffect(() => {
+    if(props.parentType && props.parentType === 'In-Progress' ) {
+      if(props.bodyObj.time != 0)
+        setTimer(props.bodyObj.time);
+    }
+  }, [props.bodyObj])
+
   const handleStart = () => {
-    setIsActive(true)
-    setIsPaused(true)
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1)
     }, 1000)
@@ -24,9 +26,7 @@ const CardBody = (props) => {
 
   const handleReset = () => {
     clearInterval(countRef.current)
-    setIsActive(false)
-    setIsPaused(false)
-    setTimer(0)
+    setTimer(props.bodyObj.time);
   }
 
   const handleAction = (obj, type) => {

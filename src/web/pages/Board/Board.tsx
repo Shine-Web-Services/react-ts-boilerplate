@@ -12,13 +12,33 @@ interface RouteProps {
 }
 
 const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
-  const task                                    = {id: "", cardNumber: "", cardDescription:"New Task - ", type: "todo", time: "", price : ""};
+  const task                                    = {id: "", cardNumber: "", cardDescription:"New Task - ", type: "todo", time: 0, price : "", timeStarted: ""};
   const [maxId, setMaxID]                       = useState<number>(151);
-  const [toDoBoard, setToDoBoard]               = useState<any>([{id: "task-151", cardNumber: "TK-151", cardDescription:"Create a test TO DO app", type: "todo", time: "", price : ""}]);
+  const [toDoBoard, setToDoBoard]               = useState<any>([{id: "task-151", cardNumber: "TK-151", cardDescription:"Create a test TO DO app", type: "todo", time: 0, price : "", timeStarted: ""}]);
   const [inProgressBoard, setInProgressBoard]   = useState<any>([]);
   const [completeBoard, setCompleteBoard]       = useState<any>([]);
 
+  const formatMilliseconds = (t) => {
+    let sign = 1; // 1 for positive and 0 for negative
+    if (t < 0) {
+        t = -t;
+        sign = 0;
+    }
+    const pad = function(n){ return n < 10 ? '0' + n : n; };
+    var s,m,d,h;
+    s = Math.floor(t / 1000);
+    m = Math.floor(s / 60);
+    s = s % 60;
+    h = Math.floor(m / 60);
+    m = m % 60;
 
+    if( m === 60 ){
+        h++;
+        m = 0;
+    }
+    //const result = [pad(h), pad(m), pad(s)].join(':');
+    return s;
+  }  
 
   let ticketBtnClickHandler = (data) => {
     let eventType = data.type
@@ -30,9 +50,11 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
     if (eventType === "todo") {
       let index = toDoState.findIndex(e => e.id == data.id);
       if(index > -1) {
+        let date = new Date();
         toDoState.splice(index, 1);
         setToDoBoard(toDoState);
         localData.type = 'inprogress';
+        localData.timeStarted = date.getTime();
         inProgressState.push(localData);
 
         setInProgressBoard(inProgressState);
@@ -41,8 +63,10 @@ const Board: React.FC<RouteProps> = ({ history }): JSX.Element => {
       let index = inProgressState.findIndex(e => e.id == data.id);
       if(index > -1) {
         inProgressState.splice(index, 1);
+        inProgressState.map((obj, idx) => {
+          obj.time = formatMilliseconds(new Date().getTime() - obj.timeStarted);
+        })
         setInProgressBoard(inProgressState);
-        console.log(localData);
         localData.price = Math.round((localData.time / 3600)  * TASK_PRICE * 100 ) / 100;
         localData.type = 'complete';
         completeBoardState.push(localData);
